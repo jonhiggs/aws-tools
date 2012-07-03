@@ -1,0 +1,4 @@
+Just source the ./etc/environment file in your .bashrc with something like this.
+
+  if [ -f ~/Repos/aws/etc/environment ]; then source ~/Repos/aws/etc/environment; fi
+

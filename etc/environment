@@ -1,0 +1,15 @@
+#!/bin/bash
+DIR="/users/${USER}/Repos/aws"
+
+export JAVA_HOME=`/usr/libexec/java_home`
+
+export EC2_PRIVATE_KEY="${DIR}/etc/private_key.pem"
+export EC2_CERT="${DIR}/etc/cert.pem"
+
+export EC2_HOME="${DIR}/opt/ec2-api"
+export AWS_AUTO_SCALING_HOME="${DIR}/opt/ec2-as"
+export AWS_ELB_HOME="${DIR}/opt/ec2-elb"
+export AWS_AMITOOL_HOME="${DIR}/opt/ec2-ami"
+export AWS_CLOUDWATCH_HOME="${DIR}/opt/ec2-cw"
+
+export PATH="${PATH}:${EC2_HOME}/bin:${AWS_AUTO_SCALING_HOME}/bin:${AWS_ELB_HOME}/bin:${AWS_AMITOOL_HOME}/bin:${AWS_CLOUDWATCH_HOME}/bin"
