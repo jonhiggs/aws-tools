@@ -1,2 +1,2 @@
-./etc/private_key.pem
-./etc/cert.pem
+*.pem
+*.swp
