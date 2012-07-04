@@ -2,6 +2,7 @@
 DIR="/users/${USER}/Repos/aws"
 
 export JAVA_HOME=`/usr/libexec/java_home`
+export EC2_REGION='eu-west-1'
 
 export EC2_PRIVATE_KEY="${DIR}/etc/private_key.pem"
 export EC2_CERT="${DIR}/etc/cert.pem"
