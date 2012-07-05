@@ -2,3 +2,4 @@
 *.swp
 zips/
 etc/secrets
+*.sw?
