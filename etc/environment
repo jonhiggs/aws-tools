@@ -1,5 +1,11 @@
 #!/bin/bash
-DIR="/users/${USER}/Repos/aws"
+# START WITH UNSETTING THE AWS PATHS IF THEY ARE SET (allows more than one
+# checkout of this repo and switching between them)
+aws_path="${EC2_HOME}/bin:${AWS_AUTO_SCALING_HOME}/bin:${AWS_ELB_HOME}/bin:${AWS_AMITOOL_HOME}/bin:${AWS_CLOUDWATCH_HOME}/bin"
+export PATH=$(echo $PATH | sed "s#:${aws_path}##g")
+
+# NOW START THE WORK
+DIR="/users/${USER}/Repos/aws-staging"
 if [ -f $DIR/etc/secrets ]; then source $DIR/etc/secrets; fi
 
 export JAVA_HOME=`/usr/libexec/java_home`
@@ -14,4 +20,5 @@ export AWS_ELB_HOME="${DIR}/opt/ec2-elb"
 export AWS_AMITOOL_HOME="${DIR}/opt/ec2-ami"
 export AWS_CLOUDWATCH_HOME="${DIR}/opt/ec2-cw"
 
-#export PATH="${PATH}:${EC2_HOME}/bin:${AWS_AUTO_SCALING_HOME}/bin:${AWS_ELB_HOME}/bin:${AWS_AMITOOL_HOME}/bin:${AWS_CLOUDWATCH_HOME}/bin"
+aws_path="${EC2_HOME}/bin:${AWS_AUTO_SCALING_HOME}/bin:${AWS_ELB_HOME}/bin:${AWS_AMITOOL_HOME}/bin:${AWS_CLOUDWATCH_HOME}/bin"
+export PATH="${PATH}:${aws_path}"
