@@ -5,7 +5,9 @@ aws_path="${EC2_HOME}/bin:${AWS_AUTO_SCALING_HOME}/bin:${AWS_ELB_HOME}/bin:${AWS
 export PATH=$(echo $PATH | sed "s#:${aws_path}##g")
 
 # NOW START THE WORK
-DIR="/users/${USER}/Repos/aws-staging"
+DIR=$(dirname $0)
+DIR=$($DIR/../bin/expand_path.rb $DIR)
+
 if [ -f $DIR/etc/secrets ]; then source $DIR/etc/secrets; fi
 
 export JAVA_HOME=`/usr/libexec/java_home`
