@@ -1,0 +1,11 @@
+#!/bin/bash
+
+if [ -x $1 ]; then
+  echo "you must provide a scaling group name as an argument."
+  exit 1
+fi
+
+instances=`as-describe-auto-scaling-groups $1 | grep "^INSTANCE" | awk '{ print $2 }'`
+instances=`echo $instances | tr -d '\n'` # just trims the new lines.
+
+ec2-describe-instances $instances | grep "^INSTANCE" | awk '{ print $4 }'
