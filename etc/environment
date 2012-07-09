@@ -24,5 +24,5 @@ export AWS_AMITOOL_HOME="${DIR}/opt/ec2-ami"
 export AWS_CLOUDWATCH_HOME="${DIR}/opt/ec2-cw"
 export AWS_RDS_HOME="${DIR}/opt/rds"
 
-aws_path="${EC2_HOME}/bin:${AWS_AUTO_SCALING_HOME}/bin:${AWS_ELB_HOME}/bin:${AWS_AMITOOL_HOME}/bin:${AWS_CLOUDWATCH_HOME}/bin:${AWS_RDS_HOME}:/bin"
+aws_path="${EC2_HOME}/bin:${AWS_AUTO_SCALING_HOME}/bin:${AWS_ELB_HOME}/bin:${AWS_AMITOOL_HOME}/bin:${AWS_CLOUDWATCH_HOME}/bin:${AWS_RDS_HOME}/bin"
 export PATH="${PATH}:${aws_path}"
