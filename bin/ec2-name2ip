@@ -1,11 +1,11 @@
 #!/bin/bash
 
-if [ -x $1 ];  then
+if [ -x "$1" ];  then
   echo "you must provide the instance name as found in the Name tag"
   exit 1
 fi
 
-instances=`ec2-describe-tags --filter key=Name --filter value=$1 | awk '{ print $3 }'`
+instances=`ec2-describe-tags --filter key=Name --filter value="$1" | awk '{ print $3 }'`
 
 if [ -z "$instances" ]; then
   echo "there where no instances by the name of $1 found"
