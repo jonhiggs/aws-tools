@@ -1,0 +1,26 @@
+#!/bin/bash
+if [ -z $1 ]; then
+  echo "you must supply an argument of the auto scaling group"
+  exit 1
+fi
+
+AS_TMP=`mktemp -t autoscaler`
+
+function describe-auto-scaling-group {
+  if [ -z "`cat ${AS_TMP}`" ]; then
+    as-describe-auto-scaling-groups $1 > $AS_TMP
+  fi
+  cat $AS_TMP
+}
+
+AS=$1
+ELB=`describe-auto-scaling-group $AS | head -n1 | awk '{ print $5 }'`
+
+HEALTHY_IN_AS=`describe-auto-scaling-group ${AS} | egrep -c "InService\ +Healthy"`
+HEALTHY_IN_ELB=`elb-describe-instance-health ${ELB} | grep -c "InService"`
+RUNNING_INSTANCES=`describe-auto-scaling-group ${AS} | head -n1 | awk '{ print $8 }'`
+
+echo "${HEALTHY_IN_ELB}/${HEALTHY_IN_AS}/${RUNNING_INSTANCES}"
+
+rm $AS_TMP
+exit 0
