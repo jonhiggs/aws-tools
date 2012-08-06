@@ -1,0 +1,64 @@
+#!/bin/bash
+
+if [ -z $1 ]; then
+  echo "you must supply an argument of the auto scaling group"
+  exit 1
+fi
+
+function describe_auto_scaling_group() {
+  if [ -z "`cat ${AS_TMP}`" ]; then
+    as-describe-auto-scaling-groups $1 > $AS_TMP
+  fi
+  cat $AS_TMP
+}
+
+function current_capacity() {
+  describe_auto_scaling_group ${AS} | grep "^AUTO-SCALING-GROUP" | awk '{ print $8 }'
+}
+
+function desired_capacity() {
+  echo $((`current_capacity`*2))
+}
+
+function healthy_instances() {
+  this_dir=`dirname $0`
+  x=`$this_dir/healthy-instances $AS`
+  IN_SERVICE_ELB=`echo $x | cut -d/ -f1`
+  IN_SERVICE_AS=`echo $x | cut -d/ -f2`
+  RUNNING=`echo $x | cut -d/ -f3`
+  OUT_OF_SERVICE=$(($RUNNING-$IN_SERVICE_ELB))
+}
+
+function get_scaling_status() {
+  scaling_to=$1
+  healthy_instances
+
+  while [ $scaling_to -ne $IN_SERVICE_ELB ]; do
+    echo; echo
+    echo "waiting for $scaling_to instances to become healthy."
+    echo "current number of 'in service' instances: ${IN_SERVICE_ELB}"
+    echo "current number of 'out of service' instances: ${OUT_OF_SERVICE}"
+    echo "sleeping for 10 seconds."
+
+    sleep 10
+    healthy_instances
+  done
+}
+
+function bring_up_new_instances() {
+  as-set-desired-capacity ${AS} --desired-capacity `desired_capacity`
+  get_scaling_status `desired_capacity`
+}
+
+function take_down_old_instances() {
+  as-set-desired-capacity ${AS} --desired-capacity ${current_capacity}
+  get_scaling_status `current_capacity`
+}
+
+
+AS_TMP=`mktemp -t instance-roller`
+AS=$1
+
+bring_up_new_instances
+
+rm $AS_TMP
