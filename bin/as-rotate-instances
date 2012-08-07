@@ -60,5 +60,6 @@ AS_TMP=`mktemp -t instance-roller`
 AS=$1
 
 bring_up_new_instances
+take_down_old_instances
 
 rm $AS_TMP
