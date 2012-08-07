@@ -3,3 +3,4 @@
 zips/
 etc/secrets
 *.sw?
+bin/redeploy_all.sh
