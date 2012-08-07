@@ -51,7 +51,7 @@ function bring_up_new_instances() {
 }
 
 function take_down_old_instances() {
-  as-set-desired-capacity ${AS} --desired-capacity ${current_capacity}
+  as-set-desired-capacity ${AS} --desired-capacity `current_capacity`
   get_scaling_status `current_capacity`
 }
 
@@ -60,6 +60,12 @@ AS_TMP=`mktemp -t instance-roller`
 AS=$1
 
 bring_up_new_instances
-take_down_old_instances
+
+echo "Would you like to now take down the old instances? [y|N]"
+read take_down
+
+if [ $take_down == "y" ]; then
+  take_down_old_instances
+fi
 
 rm $AS_TMP
