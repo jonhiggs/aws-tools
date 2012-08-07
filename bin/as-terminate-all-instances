@@ -1,0 +1,10 @@
+#!/bin/bash
+if [ -z $1 ]; then
+  echo "you must supply an argument of the auto scaling group"
+  exit 1
+fi
+
+AS=$1
+
+INSTANCES=`as-describe-auto-scaling-groups $AS | grep "^INSTANCE" | awk '{ print $2 }' | tr "\\n" " "`
+ec2-terminate-instances $INSTANCES
