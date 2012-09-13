@@ -1,4 +1,6 @@
 #!/bin/bash
+# this script takes an auto scaling group. doubles its capacity. waits until
+# everything is healthy then halves the capacity.
 
 if [ -z $1 ]; then
   echo "you must supply an argument of the auto scaling group"
