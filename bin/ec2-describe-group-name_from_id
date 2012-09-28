@@ -1,0 +1,7 @@
+#!/bin/bash
+if [ -z '$1' ]; then
+  echo "You must provide a security group id."
+  exit 1
+fi
+
+ec2-describe-group $1 | head -n1 | awk '{ print $4 }'
