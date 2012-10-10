@@ -1,0 +1,14 @@
+#!/bin/bash
+if [ -x "$1" ];  then
+  echo "you must provide the instance name as found in the Name tag"
+  exit 1
+fi
+
+ip=`ec2-describe-instances --show-empty-fields $1 | grep ^INSTANCE | awk '{ print $17 }'`
+
+if [ -z "$ip" ]; then
+  echo "there where no instances with the id of $1 found"
+  exit 1
+fi
+
+echo $ip
