@@ -1,0 +1,16 @@
+#!/bin/bash
+if [ -x "$1" ];  then
+  echo "you must provide the id of the instance to ssh into with an optional user."
+  exit 1
+fi
+
+if ( echo $1 | grep @ ); then
+  user=`echo "$1" | cut -d@ -f1`
+  instance_id=`echo "$1" | cut -d@ -f2`
+  ip=`ec2-id2ip ${instance_id}`
+else
+  user=$USER
+  ip=`ec2-id2ip $1`
+fi
+
+ssh ${user}@${ip}
