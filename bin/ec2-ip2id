@@ -1,0 +1,26 @@
+#!/bin/bash
+INPUT=$1
+
+function ip2addr() {
+  host $1 | grep -o "domain name pointer .*" | egrep -o "[^\ ]*$" | sed 's/\.$//g'
+}
+
+function addr2ip() {
+  host $1 | grep "has address" | grep -o "[^\ ]*$"
+}
+
+function addr2id() {
+  ec2-describe-instances | grep $1 | grep "^INSTANCE" | awk '{ print $2 }'
+}
+
+if echo $INPUT | egrep "^[0-9\.]+$"; then
+  ADDR=`ip2addr $INPUT`
+else
+  ADDR=$INPUT
+fi
+
+IP=`addr2ip $ADDR`
+
+for ip in $IP; do
+  addr2id `ip2addr $ip`
+done
