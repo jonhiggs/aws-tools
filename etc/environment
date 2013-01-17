@@ -26,3 +26,10 @@ export AWS_RDS_HOME="${DIR}/opt/rds"
 
 aws_path="${DIR}/bin:${EC2_HOME}/bin:${AWS_AUTO_SCALING_HOME}/bin:${AWS_ELB_HOME}/bin:${AWS_AMITOOL_HOME}/bin:${AWS_CLOUDWATCH_HOME}/bin:${AWS_RDS_HOME}/bin"
 export PATH="${PATH}:${aws_path}"
+
+# CREATE CREDENTIALS FILE
+export AWS_CREDENTIAL_FILE="${DIR}/etc/credentials.txt"
+echo -n > ${AWS_CREDENTIAL_FILE}
+echo "AWSAccessKeyId=${AWS_ACCESS_KEY_ID}" > ${AWS_CREDENTIAL_FILE}
+echo "AWSSecretKey=${AWS_SECRET_ACCESS_KEY}" >> ${AWS_CREDENTIAL_FILE}
+chmod 600 ${AWS_CREDENTIAL_FILE}
