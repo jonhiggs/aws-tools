@@ -10,7 +10,14 @@ DIR=$($DIR/../bin/expand_path.rb $DIR/../)
 
 if [ -f $DIR/etc/secrets ]; then source $DIR/etc/secrets; fi
 
-export JAVA_HOME=`/usr/libexec/java_home`
+if [ -f /usr/libexec/java_home ]; then
+  JAVA_HOME=`/usr/libexec/java_home`
+else
+  java_bin=`which java`
+  while [ -L $java_bin ]; do java_bin=`readlink $java_bin`; done
+  JAVA_HOME=`$DIR/bin/expand_path.rb $(dirname $java_bin)/../`
+fi
+
 export EC2_REGION='eu-west-1'
 export EC2_URL="https://eu-west-1.ec2.amazonaws.com"
 
