@@ -1,0 +1,25 @@
+#!/bin/bash
+
+if [ -z $3 ]; then
+  echo "usage: $0 <username> <access_key> <secret_access_key>"
+  exit 1
+fi
+
+TMP_DIR=`mktmp -d -t iam_user`
+
+pushd ${TMP_DIR}
+openssl genrsa -out pk-amazon.pem 2048
+openssl req -new -x509 -key pk-amazon.pem -out cert-amazon.pem -days 3650
+openssl pkcs8 -topk8 -in pk-amazon.pem -nocrypt > pk-temp.pem
+mv pk-temp.pem pk-amazon.pem
+
+echo "upload this certificate"
+cat cert-amazon.pem
+read
+
+echo "this is your private key"
+cat pk-amazon.pem
+echo "keep it secret, keep it safe."
+
+popd
+rm -Rf ${TMP_DIR}
