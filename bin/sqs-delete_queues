@@ -1,0 +1,21 @@
+#!/usr/bin/env ruby
+raise "you better doublecheck this before you run it"
+
+require 'rubygems'
+require 'aws-sdk'
+
+AWS.config(
+  :access_key_id => "secret",
+  :secret_access_key => "secret",
+  :sqs_endpoint => "sqs.eu-west-1.amazonaws.com"
+)
+
+sqs = AWS::SQS.new()
+client = ::AWS::SQS::Client.new
+
+sqs.queues.collect(&:url).each do |queue|
+  next unless queue.match(/[a-f0-9]{32}/)
+  puts queue
+
+  client.delete_queue(:queue_url => queue )
+end
