@@ -5,7 +5,7 @@ if [ -z $3 ]; then
   exit 1
 fi
 
-TMP_DIR=`mktmp -d -t iam_user`
+TMP_DIR=`mktemp -d -t iam_user`
 
 pushd ${TMP_DIR}
 openssl genrsa -out pk-amazon.pem 2048
