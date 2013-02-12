@@ -44,8 +44,8 @@ chmod 600 ${AWS_CREDENTIAL_FILE}
 
 # CREATE THE ROUTE53 CREDENTIALS FILE
 echo -n > ${DIR}/etc/route53.cfg
-echo "access_key: AKIAIGLZROSXNSK7HAXQ" >> ${DIR}/etc/route53.cfg
-echo "secret_key: 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" >> ${DIR}/etc/route53.cfg
+echo "access_key: ${AWS_ACCESS_KEY_ID}" >> ${DIR}/etc/route53.cfg
+echo "secret_key: ${AWS_SECRET_ACCESS_KEY}" >> ${DIR}/etc/route53.cfg
 echo "api: '2011-05-05'" >> ${DIR}/etc/route53.cfg
 echo "endpoint: https://route53.amazonaws.com/" >> ${DIR}/etc/route53.cfg
 echo "default_ttl: '60'" >> ${DIR}/etc/route53.cfg
