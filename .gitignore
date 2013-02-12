@@ -5,3 +5,4 @@ etc/secrets
 *.sw?
 bin/redeploy_all.sh
 etc/credentials.txt
+etc/route53.cfg
