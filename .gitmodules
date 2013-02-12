@@ -1,0 +1,6 @@
+[submodule "opt/ruby_route_53"]
+	path = opt/ruby_route_53
+	url = git://github.com/pcorliss/ruby_route_53.git
+[submodule "opt/cli53"]
+	path = opt/cli53
+	url = git://github.com/barnybug/cli53.git
