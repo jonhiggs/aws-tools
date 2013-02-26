@@ -5,12 +5,11 @@ if [ -x "$1" ];  then
 fi
 
 if ( echo $1 | grep @ ); then
-  user=`echo "$1" | cut -d@ -f1`
+  user="`echo "$1" | cut -d@ -f1`@"
   instance_id=`echo "$1" | cut -d@ -f2`
-  ip=`ec2-id2ip ${instance_id}`
+  ip=`ec2-id2address ${instance_id}`
 else
-  user=$USER
-  ip=`ec2-id2ip $1`
+  ip=`ec2-id2address $1`
 fi
 
-ssh ${user}@${ip}
+ssh ${user}${ip}
