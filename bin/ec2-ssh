@@ -12,4 +12,4 @@ else
   ip=`ec2-id2address $1`
 fi
 
-ssh ${user}${ip}
+ssh ${user}${ip} $2
