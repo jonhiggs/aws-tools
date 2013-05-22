@@ -1,8 +1,9 @@
 *.pem
-*.swp
-zips/
-etc/secrets
+*.pyc
 *.sw?
+*.swp
 bin/redeploy_all.sh
 etc/credentials.txt
 etc/route53.cfg
+etc/secrets
+zips/
