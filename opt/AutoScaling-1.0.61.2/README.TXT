@@ -4,7 +4,7 @@ Auto Scaling Command Line Tools
 Installation:
 -------------
 
-1. Ensure that JAVA version 1.5 or higher is installed on your system: (java -version)
+1. Ensure that JAVA version 6u37 or higher is installed on your system: (java -version)
 2. Unzip the deployment zip file
 3. Set the following environment variables:
 3.1 AWS_AUTO_SCALING_HOME - The directory where the deployment files were copied to
@@ -31,7 +31,7 @@ Using AWS Keys
       a. Set the following environment variable: AWS_CREDENTIAL_FILE=<the file created in 1>
       b. Alternatively, provide the following option with every command --aws-credential-file <the file created in 1>
       c. Explicitly specify credentials on the command line: --I ACCESS_KEY --S SECRET_KEY
-      
+
 Using X.509 Certs
 -----------------
 

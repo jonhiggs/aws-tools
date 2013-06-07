@@ -1,8 +1,9 @@
 Auto Scaling Command Line Tools
 ===============================
 
-Auto Scaling CLI version 1.0.61.0 (API 2011-01-01)
+Auto Scaling CLI version 1.0.61.2 (API 2011-01-01)
 ===================================================
+* Termination policies support added (as-describe-termination-policy-types).
 * Spot Instances support added. as-create-launch-config takes
   additional parameter "--spot-price" to launch spot instances.
 * IAM Instance Profile support added. as-create-launch-config takes
@@ -21,6 +22,8 @@ Auto Scaling CLI version 1.0.61.0 (API 2011-01-01)
 * VPC security group id can be specified as part of
   as-create-launch-config's --group parameter
 * Removed trigger related APIs
+* Support optional requirement for specifying Availability Zones for Auto Scaling group when subnets are specified
+* Support for EBS-optimized Instances
 
 Auto Scaling CLI version 1.0.33.1 (API 2010-08-01)
 ===================================================

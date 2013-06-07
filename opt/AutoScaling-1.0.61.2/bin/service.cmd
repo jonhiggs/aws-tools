@@ -15,7 +15,7 @@ SET AWS_CREDENTIAL_FILE=%AWS_CREDENTIAL_FILE:"=%
 :CREDENTIAL_FILE_MISSING
 
 if "%CHK_SERVICE_HOME:"=%" == "_" goto SERVICE_HOME_MISSING
-if "%CHK_JAVA_HOME:"=%" == "_" goto JAVA_HOME_MISSING 
+if "%CHK_JAVA_HOME:"=%" == "_" goto JAVA_HOME_MISSING
 
 REM If a classpath exists preserve it
 
@@ -23,32 +23,10 @@ SET SERVICE_HOME=%SERVICE_HOME:"=%
 SET LIB="%SERVICE_HOME%\lib"
 
 REM Brute force
-SET CP=%LIB%\service.jar
-SET CP=%CP%;%LIB%\CliCommando-1.0.jar
-SET CP=%CP%;%LIB%\Commons-codec-1.3.jar
-SET CP=%CP%;%LIB%\Commons-cli-1.1.jar
-SET CP=%CP%;%LIB%\activation-1.1.jar
-SET CP=%CP%;%LIB%\CliCommando-1.0.jar
-SET CP=%CP%;%LIB%\commons-discovery-0.2.jar
-SET CP=%CP%;%LIB%\commons-httpclient-3.0.jar
-SET CP=%CP%;%LIB%\commons-logging-1.0.4.jar
-SET CP=%CP%;%LIB%\commons-logging-api-1.1.1.jar
-SET CP=%CP%;%LIB%\service.jar
-SET CP=%CP%;%LIB%\jaxb-api-2.0.jar
-SET CP=%CP%;%LIB%\jaxb-impl-2.0.1.jar
-SET CP=%CP%;%LIB%\jaxws-api-2.0.jar
-SET CP=%CP%;%LIB%\jdom-1.0.jar
-SET CP=%CP%;%LIB%\log4j.jar
-SET CP=%CP%;%LIB%\serializer.jar
-SET CP=%CP%;%LIB%\stax-api-1.0.1.jar
-SET CP=%CP%;%LIB%\wsdl4j-1.6.1.jar
-SET CP=%CP%;%LIB%\wss4j-1.5.7.jar
-SET CP=%CP%;%LIB%\wstx-asl-3.2.0.jar
-SET CP=%CP%;%LIB%\xalan-j2-2.7.0.jar
-SET CP=%CP%;%LIB%\xfire-all-1.2.6.jar
-SET CP=%CP%;%LIB%\xfire-jsr181-api-1.0-M1.jar
-SET CP=%CP%;%LIB%\xmlsec-1.4.2.jar
+SETLOCAL ENABLEDELAYEDEXPANSION
 
+SET CP=%LIB%\service.jar
+for /F "usebackq" %%c in (`dir /b %LIB%`) do SET CP=!CP!;%LIB%\%%c
 
 REM Grab the class name
 SET CMD=%1
